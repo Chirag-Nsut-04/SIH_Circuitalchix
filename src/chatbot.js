@@ -1,15 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const ChatBot = () => {
+  const [message, setMessage] = useState(''); // To hold the user input
+  const [response, setResponse] = useState(''); // To hold the Dialogflow response
+  const [conversation, setConversation] = useState([]); // To hold the conversation history
+
+  // Function to send the message to the backend
+  const handleSendMessage = async () => {
+    if (message.trim()) {
+      // Update the conversation state with the user's message
+      setConversation([...conversation, { sender: 'user', text: message }]);
+
+      try {
+        // Send the message to the Node.js backend
+        const res = await axios.post('https://backendchatbot-mpsk.onrender.com/webhook', { message });
+
+        // Update the conversation with the bot's response
+        const botResponse = res.data.fulfillmentText;
+        setConversation([...conversation, { sender: 'user', text: message }, { sender: 'bot', text: botResponse }]);
+
+        // Clear the input field
+        setMessage('');
+        // Update the response
+        setResponse(botResponse);
+      } catch (error) {
+        console.error('Error sending message:', error);
+        setResponse('Error communicating with the bot.');
+      }
+    }
+  };
+
   return (
-    <div>
-      <iframe
-        title="Dialogflow Chatbot"
-        allow="microphone;"
-        width="350"
-        height="430"
-        src="https://console.dialogflow.com/api-client/demo/embedded/81358a5f-d935-45f3-aeb4-ccb8e5f1d93e"
-      ></iframe>
+    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc' }}>
+      <h3>ChatBot</h3>
+      <div style={{ height: '300px', overflowY: 'auto', marginBottom: '10px', border: '1px solid #ccc', padding: '10px' }}>
+        {/* Render the conversation history */}
+        {conversation.map((msg, index) => (
+          <div key={index} style={{ textAlign: msg.sender === 'user' ? 'right' : 'left' }}>
+            <p><strong>{msg.sender === 'user' ? 'You' : 'Bot'}:</strong> {msg.text}</p>
+          </div>
+        ))}
+      </div>
+      
+      {/* Input box for typing message */}
+      <input
+        type="text"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="Type your message"
+        style={{ width: 'calc(100% - 50px)', padding: '10px' }}
+      />
+      <button onClick={handleSendMessage} style={{ padding: '10px', width: '50px' }}>
+        Send
+      </button>
+
+      {/* Display the response from the bot */}
+      <div style={{ marginTop: '10px', color: 'gray' }}>
+        {response && <p><strong>Bot says:</strong> {response}</p>}
+      </div>
     </div>
   );
 };

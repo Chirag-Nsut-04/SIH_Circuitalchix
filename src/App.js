@@ -1,13 +1,14 @@
-import React from 'react';
-import ChatBot from './chatbot'; // Import the ChatBot component
+// src/App.js
+import React from "react";
+import Chatbot from "./chatbot"; // Import the Chatbot component
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <h1>Welcome to our site!</h1>
-      <ChatBot />
+    <div className="App" style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      <h1>Ticket Booking Chatbot</h1>
+      <Chatbot /> {/* Call the Chatbot component */}
     </div>
   );
-};
+}
 
 export default App;
