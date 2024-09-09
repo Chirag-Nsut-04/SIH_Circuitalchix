@@ -1,27 +1,23 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Footer from "./components/Footer";
-import Home from "./components/Home";
+import Home from "./routes/Home";
 import Navbar from "./components/Navbar";
-import Offer from "./components/Offer";
 import ScrollToTop from "./components/ScrollToTop";
+import Search from "./routes/Search";
 import Services from "./components/Services";
-import Testimonial from "./components/Testimonial";
-import Tours from "./components/Tours";
 
 export default function App() {
   return (
-    <div>
+    <Router>
       <ScrollToTop />
       <Navbar />
-      <Home />
-      <Services />
-      {/* <Destinations /> */}
-      <Offer />
-      <Tours />
-      <Testimonial />
-      {/* <DownloadApp /> */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+      </Routes>
       <Footer />
-    </div>
+    </Router>
   );
 }

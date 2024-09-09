@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import tour1 from "../assets/easy.gif";
-import tour2 from "../assets/stripe.gif";
+import tour2 from "../assets/pay.gif";
 import tour3 from "../assets/lang.gif";
 
 import ellipse from "../assets/ellipse.png";
