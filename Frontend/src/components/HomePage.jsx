@@ -1,9 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import HeroImage from "../assets/aero.gif";
-import Button from "./Button";
+import Button from "../components/Button"; // Update import path if needed
+
 export default function Home() {
   const [value, setValue] = useState("$500 - $10,000");
+  const navigate = useNavigate();
+
+  const handleStartBooking = () => {
+    navigate("/search");
+  };
+
   return (
     <Section>
       <div className="background">
@@ -12,8 +20,8 @@ export default function Home() {
       <div className="content">
         <div className="info">
           <h1>Planning a trip?</h1>
-          <h1>Let our chatbot  </h1>
-          <h1>skip the lines for you </h1>
+          <h1>Let our chatbot</h1>
+          <h1>skip the lines for you</h1>
           <Button text="Plan Your Trip" />
         </div>
         <div className="planner">
@@ -38,7 +46,7 @@ export default function Home() {
               />
             </div>
             <div className="row">
-              <Button text="Start Booking" />
+              <Button text="Start Booking" onClick={handleStartBooking} />
             </div>
           </form>
         </div>
