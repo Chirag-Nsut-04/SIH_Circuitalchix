@@ -9,11 +9,11 @@ const Search = () => {
 
   const handleSearch = (filters) => {
     const filtered = flightData.filter(flight => {
-      const matchesSource = filters.source === '' || flight.source.toLowerCase().includes(filters.source.toLowerCase());
-      const matchesDestination = filters.destination === '' || flight.destination.toLowerCase().includes(filters.destination.toLowerCase());
+      const matchesSource = filters.source === '' || flight.Location.toLowerCase().includes(filters.source.toLowerCase());
+      const matchesDestination = filters.destination === '' || flight.Location.toLowerCase().includes(filters.destination.toLowerCase());
       const matchesMinPrice = filters.minPrice === '' || flight.price >= Number(filters.minPrice);
       const matchesMaxPrice = filters.maxPrice === '' || flight.price <= Number(filters.maxPrice);
-      const matchesDate = filters.departureDate === '' || flight.departureTime.startsWith(filters.departureDate);
+      const matchesDate = filters.departureDate === '' || flight.OpeningTime.startsWith(filters.departureDate);
 
       return matchesSource && matchesDestination && matchesMinPrice && matchesMaxPrice && matchesDate;
     });

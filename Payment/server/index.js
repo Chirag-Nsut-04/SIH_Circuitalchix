@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
-const cors =  require('cors');
-const crypto = require('crypto')
-const {Cashfree} = require('cashfree-pg');
+const cors = require('cors');
+const crypto = require('crypto');
+const { Cashfree } = require('cashfree-pg');
 
 const app = express();
 app.use(cors());
@@ -11,8 +11,7 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-//
-
+// Setting up Cashfree credentials from .env file
 Cashfree.XClientId = process.env.CLIENT_ID;
 Cashfree.XClientSecret = process.env.CLIENT_SECRET;
 Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
@@ -31,67 +30,52 @@ function generateOrderId() {
     return orderId.substr(0, 12);
 }
 
-
-// test
-app.get('/' , (req  , res)=>{
+// Test endpoint
+app.get('/', (req, res) => {
     res.send("Hello");
-})
+});
 
-// two end points
+// Payment endpoint
 app.get('/payment', async (req, res) => {
-
     try {
-
         let request = {
-            "order_amount": 100.00,
+            "order_amount": 300.00,
             "order_currency": "INR",
             "order_id": await generateOrderId(),
             "customer_details": {
                 "customer_id": "chiragMaini04",
-                "customer_phone": "8800772801",
-                "customer_name": "chirag maini",
-                "customer_email": "chirag@example.com"
+                "customer_phone": process.env.CUSTOMER_PHONE,
+                "customer_name": process.env.CUSTOMER_NAME,
+                "customer_email": process.env.CUSTOMER_EMAIL
             },
-        }
+        };
 
         Cashfree.PGCreateOrder("2023-08-01", request).then(response => {
             console.log(response.data);
             res.json(response.data);
-
         }).catch(error => {
             console.error(error.response.data.message);
-        })
-
-
+        });
     } catch (error) {
         console.log(error);
     }
+});
 
-
-})
-//
+// Verify payment endpoint
 app.post('/verify', async (req, res) => {
-
     try {
-
-        let {
-            orderId
-        } = req.body;
+        let { orderId } = req.body;
 
         Cashfree.PGOrderFetchPayments("2023-08-01", orderId).then((response) => {
-
             res.json(response.data);
         }).catch(error => {
             console.error(error.response.data.message);
-        })
-
-
+        });
     } catch (error) {
         console.log(error);
     }
-})
-//
+});
 
-app.listen(8000 ,()=>{
+app.listen(8000, () => {
     console.log("Server is running on 8000");
-})
+});

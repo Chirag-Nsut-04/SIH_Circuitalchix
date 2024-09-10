@@ -25,7 +25,7 @@ const Filter = ({ onSearch }) => {
   return (
     <FilterContainer>
       <Title>
-        Search Flights
+        Search Museums
       </Title>
       <Top>
         <Item>

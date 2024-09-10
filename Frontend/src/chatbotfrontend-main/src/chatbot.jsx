@@ -40,9 +40,28 @@ const ChatBot = () => {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc' }}>
+    <div
+      style={{
+        maxWidth: '400px',
+        margin: '0 auto',
+        padding: '20px',
+        border: '1px solid #ccc',
+        backgroundImage: 'url(https://th.bing.com/th/id/OIP.MMFOGqbyNaGse90a65a2oAHaFY?w=258&h=188&c=7&r=0&o=5&dpr=1.3&pid=1.7)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
       <h3>ChatBot</h3>
-      <div style={{ height: '300px', overflowY: 'auto', marginBottom: '10px', border: '1px solid #ccc', padding: '10px' }}>
+      <div
+        style={{
+          height: '300px',
+          overflowY: 'auto',
+          marginBottom: '10px',
+          border: '1px solid #ccc',
+          padding: '10px',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)' // Background color with opacity for readability
+        }}
+      >
         {/* Render the conversation history */}
         {conversation.map((msg, index) => (
           <div key={index} style={{ textAlign: msg.sender === 'user' ? 'right' : 'left' }}>

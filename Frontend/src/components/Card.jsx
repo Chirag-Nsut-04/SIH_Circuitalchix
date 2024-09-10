@@ -14,17 +14,17 @@ const Card = ({ item }) => {
         </Title>
         <Details>
           <Detail>
-            <span>{item.source} ➡️ {item.destination}</span>
+            <span>Location: {item.Location}</span>
           </Detail>
           <Detail>
-            <span>🛫 Departure: {new Date(item.departureTime).toLocaleTimeString()}</span>
+            <span>Opening Time: {new Date(item.OpeningTime).toLocaleTimeString()}</span>
           </Detail>
           <Detail>
-            <span>🛬 Arrival: {new Date(item.arrivalTime).toLocaleTimeString()}</span>
+            <span>Closing Time: {new Date(item.ClosingTime).toLocaleTimeString()}</span>
           </Detail>
         </Details>
         <Price>$ {item.price}</Price>
-        <BookButton to="/chatbot">Book Flight</BookButton>
+        <BookButton to="/chatbot">Book Museums</BookButton>
       </TextContainer>
     </CardContainer>
   );
