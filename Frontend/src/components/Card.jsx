@@ -24,7 +24,7 @@ const Card = ({ item }) => {
           </Detail>
         </Details>
         <Price>$ {item.price}</Price>
-        <BookButton to={`/${item.id}/book`}>Book Flight</BookButton>
+        <BookButton to="/chatbot">Book Flight</BookButton>
       </TextContainer>
     </CardContainer>
   );
